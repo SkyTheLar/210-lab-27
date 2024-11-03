@@ -27,15 +27,26 @@ int main() {
     villagers["Raymond"] = {2, "Wolf", "Yippie"};
     villagers.insert({"Marshal", {8, "Rat", "I like cheese."}});
 
-    dispVillage(villagers);
-    incFriendship(villagers);
+    // run menu loop
+    int choice;
+    while (choice != 6){
+    	choice = mainMenu();
+    	switch (choice) {
+    	case 1: addVillager(villagers); dispVillage(villagers); break;
+    	case 2: delVillager(villagers); dispVillage(villagers); break;
+    	case 3: incFriendship(villagers); dispVillage(villagers); break;
+    	case 4: decFriendship(villagers); dispVillage(villagers); break;
+    	case 5: vSearch(villagers); break;
+    	default: break;
+    	}
+    }
 
     return 0;
 }
 
 int mainMenu() {
 	int choice;
-	cout << "\n1. Add Villager\n"
+	cout << "1. Add Villager\n"
 		 << "2. Delete Villager\n"
          << "3. Increase Friendship\n"
 		 << "4. Decrease Friendship\n"
@@ -55,6 +66,7 @@ void dispVillage(map<string, tuple<int, string, string>> v) {
 			 << get<1>(pair.second) << ", "
 			 << get<2>(pair.second) << "]\n";
 	}
+	cout << endl;
 }
 
 void addVillager(map<string, tuple<int, string, string>> &v) {
@@ -87,17 +99,17 @@ void delVillager(map<string, tuple<int, string, string>> &v) {
 }
 
 void incFriendship(map<string, tuple<int, string, string>> &v){
-	auto it = v.begin();
-	get<0>(it->second) = 4;
+	for (auto it = v.begin(); it != v.end(); it++) {
+		if (get<0>(it->second) < 10)
+			get<0>(it->second)++;
+	}
 	cout << "Friendship increased.\n";
-	dispVillage(v);
 }
 
 void decFriendship(map<string, tuple<int, string, string>> &v){
-	for (auto pair : v) {
-		if (get<0>(pair.second) > 0) {
-
-		}
+	for (auto it = v.begin(); it != v.end(); it++) {
+		if (get<0>(it->second) > 0)
+			get<0>(it->second)--;
 	}
 	cout << "Friendship decreased.\n";
 }
@@ -112,8 +124,8 @@ void vSearch(map<string, tuple<int, string, string>> &v) {
 		cout << it->first << " ["
 			 << get<0>(it->second) << ", "
 		     << get<1>(it->second) << ", "
-			 << get<2>(it->second) << "]\n";
+			 << get<2>(it->second) << "]\n\n";
 	}
 	else
-	   cout << toFind << " not found.\n";
+	   cout << toFind << " not found.\n\n";
 }
