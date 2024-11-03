@@ -15,6 +15,7 @@ void addVillager(map<string, tuple<int, string, string>>&);
 void delVillager(map<string, tuple<int, string, string>>&);
 void incFriendship(map<string, tuple<int, string, string>>&);
 void decFriendship(map<string, tuple<int, string, string>>&);
+void vSearch(map<string, tuple<int, string, string>>&);
 
 int main() {
     // declarations
@@ -28,9 +29,6 @@ int main() {
 
     dispVillage(villagers);
     incFriendship(villagers);
-    dispVillage(villagers);
-    decFriendship(villagers);
-    dispVillage(villagers);
 
     return 0;
 }
@@ -89,19 +87,33 @@ void delVillager(map<string, tuple<int, string, string>> &v) {
 }
 
 void incFriendship(map<string, tuple<int, string, string>> &v){
-	for (auto pair : v) {
-		if (get<0>(pair.second) < 10) {
-
-		}
-	}
+	auto it = v.begin();
+	get<0>(it->second) = 4;
 	cout << "Friendship increased.\n";
 	dispVillage(v);
 }
 
 void decFriendship(map<string, tuple<int, string, string>> &v){
 	for (auto pair : v) {
-		if (get<0>(pair.second) > 0)
-		    get<0>(pair.second)--;
+		if (get<0>(pair.second) > 0) {
+
+		}
 	}
 	cout << "Friendship decreased.\n";
+}
+
+void vSearch(map<string, tuple<int, string, string>> &v) {
+	string toFind;
+	cout << "Enter the name of the villager to search for: ";
+	getline(cin, toFind);
+	auto it = v.find(toFind);
+	if (it != v.end()) {
+		cout << "Displaying " << toFind << ":\n";
+		cout << it->first << " ["
+			 << get<0>(it->second) << ", "
+		     << get<1>(it->second) << ", "
+			 << get<2>(it->second) << "]\n";
+	}
+	else
+	   cout << toFind << " not found.\n";
 }
