@@ -11,6 +11,7 @@ using namespace std;
 
 int mainMenu();
 void dispVillage(map<string, tuple<int, string, string>>);
+void addVillager(map<string, tuple<int, string, string>>&);
 
 int main() {
     // declarations
@@ -37,14 +38,25 @@ int mainMenu() {
 		 << "6. Exit\n"
 		 << "Select an opiton by number: ";
 	cin >> choice;
+	cin.ignore();
 	return choice;
 }
 
 void dispVillage(map<string, tuple<int, string, string>> v) {
+	cout << "Villager Details:\n";
 	for (auto pair : v) {
-	    cout << pair.first << " [";
-	    for (auto tup : pair.second)
-	        cout << " ";
-	    cout << "]\n";
+	    cout << pair.first << " ["
+	    	 << get<0>(pair.second) << ", "
+			 << get<1>(pair.second) << ", "
+			 << get<2>(pair.second) << "]\n";
 	}
+}
+
+void addVillager(map<string, tuple<int, string, string>> &v) {
+	string name;
+	tuple<int, string, string> temp;
+	cout << "Villager name: ";
+	getline(cin, name);
+	cout << "Friendship level: ";
+	cin >>
 }
