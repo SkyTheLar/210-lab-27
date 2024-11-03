@@ -90,13 +90,12 @@ void delVillager(map<string, tuple<int, string, string>> &v) {
 
 void incFriendship(map<string, tuple<int, string, string>> &v){
 	for (auto pair : v) {
-		if (get<0>(pair.second) < 8) {
-			int temp = get<0>(pair.second) + 1;
-			cout << temp << endl;
-			get<0>(pair.second) = temp;
+		if (get<0>(pair.second) < 10) {
+
 		}
 	}
 	cout << "Friendship increased.\n";
+	dispVillage(v);
 }
 
 void decFriendship(map<string, tuple<int, string, string>> &v){
