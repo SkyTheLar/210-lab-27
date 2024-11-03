@@ -13,6 +13,8 @@ int mainMenu();
 void dispVillage(map<string, tuple<int, string, string>>);
 void addVillager(map<string, tuple<int, string, string>>&);
 void delVillager(map<string, tuple<int, string, string>>&);
+void incFriendship(map<string, tuple<int, string, string>>&);
+void decFriendship(map<string, tuple<int, string, string>>&);
 
 int main() {
     // declarations
@@ -25,7 +27,9 @@ int main() {
     villagers.insert({"Marshal", {8, "Rat", "I like cheese."}});
 
     dispVillage(villagers);
-    addVillager(villagers);
+    incFriendship(villagers);
+    dispVillage(villagers);
+    decFriendship(villagers);
     dispVillage(villagers);
 
     return 0;
@@ -46,7 +50,7 @@ int mainMenu() {
 }
 
 void dispVillage(map<string, tuple<int, string, string>> v) {
-	cout << "Villager Details:\n";
+	cout << "\nVillager Details:\n";
 	for (auto pair : v) {
 	    cout << pair.first << " ["
 	    	 << get<0>(pair.second) << ", "
@@ -77,8 +81,28 @@ void delVillager(map<string, tuple<int, string, string>> &v) {
 	getline(cin, toDelete);
 	auto it = v.find(toDelete);
 	if (it != v.end()) {
-
+		v.erase(it);
+		cout << toDelete << " deleted.\n";
 	}
 	else
-	   cout << toDelete << " not found." << endl;
+	   cout << toDelete << " not found.\n";
+}
+
+void incFriendship(map<string, tuple<int, string, string>> &v){
+	for (auto pair : v) {
+		if (get<0>(pair.second) < 8) {
+			int temp = get<0>(pair.second) + 1;
+			cout << temp << endl;
+			get<0>(pair.second) = temp;
+		}
+	}
+	cout << "Friendship increased.\n";
+}
+
+void decFriendship(map<string, tuple<int, string, string>> &v){
+	for (auto pair : v) {
+		if (get<0>(pair.second) > 0)
+		    get<0>(pair.second)--;
+	}
+	cout << "Friendship decreased.\n";
 }
