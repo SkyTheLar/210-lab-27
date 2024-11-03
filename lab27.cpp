@@ -10,6 +10,7 @@ COMSC 210 | Lab 27 | Skylar Robinson | IDE Used: Eclipse
 using namespace std;
 
 int mainMenu();
+void dispVillage(map<string, tuple<int, string, string>>);
 
 int main() {
     // declarations
@@ -21,54 +22,29 @@ int main() {
     villagers["Raymond"] = {2, "Wolf", "Yippie"};
     villagers.insert({"Marshal", {8, "Rat", "I like cheese."}});
 
-    // access the map using a range-based for loop
-    cout << "Villagers and their favorite colors (range-based for loop):" << endl;
-    for (auto pair : villagers) {
-        cout << pair.first << ": ";
-        for (auto color : pair.second)
-            cout << color << " ";
-        cout << endl;
-    }
-
-    // access the map using iterators
-    cout << "\nVillagers and their favorite colors (iterators):" << endl;
-    for (map<string, vector<string>>::iterator it = villagers.begin();
-                                               it != villagers.end(); ++it) {
-        cout << it->first << ": ";
-        for (auto color : it->second) {
-            cout << color << " ";
-        }
-        cout << endl;
-    }
-
-    // delete an element
-    villagers.erase("Raymond");
-
-    // search for an element using .find() to avoid errors
-    string searchKey = "Audie";
-    auto it = villagers.find(searchKey);
-    if (it != villagers.end()) {  // the iterator points to beyond the end of the map
-                                       // if searchKey is not found
-        cout << "\nFound " << searchKey << "'s favorite colors: ";
-        for (auto color : it->second)  // range loop to traverse the value/vector
-            cout << color << " ";
-        cout << endl;
-    } else
-        cout << endl << searchKey << " not found." << endl;
-
-    // report size, clear, report size again to confirm map operations
-    cout << "\nSize before clear: " << villagers.size() << endl;
-    villagers.clear();
-    cout << "Size after clear: " << villagers.size() << endl;
+    dispVillage(villagers);
 
     return 0;
 }
 
 int mainMenu() {
+	int choice;
 	cout << "\n1. Add Villager\n"
-2. Delete Villager
-3. Increase Friendship
-4. Decrease Friendship
-5. Search for Villager
-6. Exit"
+		 << "2. Delete Villager\n"
+         << "3. Increase Friendship\n"
+		 << "4. Decrease Friendship\n"
+		 << "5. Search for Villager\n"
+		 << "6. Exit\n"
+		 << "Select an opiton by number: ";
+	cin >> choice;
+	return choice;
+}
+
+void dispVillage(map<string, tuple<int, string, string>> v) {
+	for (auto pair : v) {
+	    cout << pair.first << " [";
+	    for (auto tup : pair.second)
+	        cout << " ";
+	    cout << "]\n";
+	}
 }
